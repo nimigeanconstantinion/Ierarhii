@@ -47,7 +47,8 @@ function Index(){
 
     }
 
-    let loadTree=(tabel:Persoana[]):void=>{
+    let loadTree= async (tabel:Persoana[])=>{
+        console.log("Sunt in load tree");
 
        let root={
            data:findRoot(tabel)
@@ -77,22 +78,33 @@ function Index(){
                tabel.shift();
            }
        }
-
+        console.log("am incarcat Arborele");
 
     }
 
 
-    let findRoot=(listaPers:Persoana[]):Persoana|null=>{
-       return listaPers.filter(p=>p.parinte.fullname==null)[0];
+    let findRoot=(listaPers:Persoana[]):Persoana=>{
+       console.log("Sunt in findRoot");
+       console.log(listaPers);
+
+       let myroot=listaPers.filter(p=>p.parinte.fullname==null)[0];
+       console.log("Root este");
+       console.log(myroot);
+       return myroot;
     }
 
     let loadClk=async ()=>{
+          let organigrama=  await loadLista();
+          console.log("-------------Sunt dupa loadlista cu organigrama-------------");
+          console.log(organigrama);
+
+          loadTree(organigrama);
 
     }
     return (
                 <WrapperHome>
                     <div className={"divcmd"}>
-                        <button className={"btnadd"} onClick={loadLista}>Arata Organigrama</button>
+                        <button className={"btnadd"} onClick={loadClk}>Arata Organigrama</button>
 
                     </div>
 
