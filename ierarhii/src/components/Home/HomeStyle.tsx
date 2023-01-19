@@ -27,7 +27,7 @@ export const WrapperHome=styled.div.attrs({className:"divhome"})`
     width: 80%;
     height: 100vh;
     display: block;
-    
+    position: relative;
     
     
   }
@@ -49,5 +49,10 @@ export const WrapperHome=styled.div.attrs({className:"divhome"})`
   justify-content: center;
 }
   
+  .divchild{
+    position: absolute;
+    top: 10px;
+    left: 10%;
+  }
   
 `

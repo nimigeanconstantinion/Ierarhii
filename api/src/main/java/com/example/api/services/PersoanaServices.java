@@ -34,10 +34,11 @@ public class PersoanaServices {
         return persoanaRepository.getChildrenByParinte(idP);
     }
 
-    public void addPerson(Persoana persoana){
+    public Persoana addPerson(Persoana persoana){
             List<Persoana> listaCopii=persoanaRepository.getChildrenByParinte(persoana.getParinte().getIdManager());
             if(listaCopii.size()<=1) {
                 persoanaRepository.save(persoana);
+                return persoana;
             }else {
                 throw new RuntimeException("Eroare mai mult de 2 copii");
             }

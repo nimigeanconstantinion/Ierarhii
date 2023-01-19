@@ -1,7 +1,7 @@
 
 
 export default interface Nod<T>{
-    left?:Nod<T>;
-    right?:Nod<T>;
-    data:T;
+    left?:Nod<T>|null;
+    right?:Nod<T>|null;
+    data?:T|null;
 }

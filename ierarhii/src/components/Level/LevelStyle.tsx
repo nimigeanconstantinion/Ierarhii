@@ -6,6 +6,7 @@ export const WrapperLevel=styled.div.attrs({className:"divlevel"})`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding: 5px;
 
 
 `

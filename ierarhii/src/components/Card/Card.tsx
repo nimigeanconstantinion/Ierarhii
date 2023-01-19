@@ -4,39 +4,37 @@ import {useState} from "react";
 import Child from "../Child/Child";
 interface CardProps{
 
-    persoana:Persoana
+    persoana:Persoana,
+    addClick:Function
+
 }
 
 
-const  Card:React.FC<CardProps>=({persoana}:CardProps)=>{
+const  Card:React.FC<CardProps>=({persoana,addClick}:CardProps)=>{
 
     const [swAdd,setswAdd]=useState(0);
 
 
-    let addChild=()=>{
-        if(swAdd==0){
-            setswAdd(1);
+    let addClk=()=>{
+            addClick(persoana);
 
-        }else{
-            setswAdd(0);
-        }
     }
 
     return (
         <>
 
             <WrapperCard>
-                <button onClick={addChild}>+</button>
+                <button onClick={addClk}>+</button>
                 <p className={"divc name"}>{persoana.fullname}</p>
                 <p className={"divc func"}>{persoana.position}</p>
             </WrapperCard>
 
-                {swAdd>0?
-                        <>
-                           <Child superior={persoana} action={addChild}/>
-                        </>
-                    :""
-                }
+                {/*{swAdd>0?*/}
+                {/*        <>*/}
+                {/*           <Child superior={persoana} action={addChild}/>*/}
+                {/*        </>*/}
+                {/*    :""*/}
+                {/*}*/}
 
         </>
     );

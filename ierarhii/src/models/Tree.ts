@@ -1,10 +1,15 @@
 import Nod from "./Nod";
+import Persoana from "./Persoana";
 
 
 export default class Tree<T>{
     protected root:Nod<T>;
     constructor(root: Nod<T>) {
         this.root = root;
+    }
+
+    public get getRoot(){
+        return this.root;
     }
 
 
@@ -14,21 +19,25 @@ export default class Tree<T>{
         }
         if (nod.data == data) {
             return nod;
-
         }
-
-        let left,right;
+        // TreeNode<T> left=find(node.getLeft(),data);
+        // if(left!=null){
+        //     return left;
+        // }
+        //
+        // return  find(node.getRight(),data);
         if(nod.left){
-            left= this.find(nod.left,data);
-            return left;
-        }else{
-            if(nod.right){
-                right=this.find(nod.right,data);
-                return right;
+            let left:Nod<T>|null=this.find(nod.left,data);
+            if(left){
+                return left;
             }
         }
-    return null;
 
+        if(nod.right){
+            return this.find(nod.right,data);
+        }
+
+        return null;
     }
 
     public add(manager:T,subordonat:T):boolean{
@@ -58,11 +67,15 @@ export default class Tree<T>{
 
 
     public traverse():void{
+        //.clear();
+        console.log("------------------La traversare----");
         let coada:Nod<T>[]=[];
         coada.push(this.root);
-        while (true){
-            let nL:Nod<T>|undefined=coada[coada.length].left;
-            let nR:Nod<T>|undefined=coada[coada.length].left;
+        console.log("ROOT");
+
+        while (coada.length>0){
+            let nL=coada[coada.length-1].left;
+            let nR=coada[coada.length-1].right;
 
             if(nL!=null){
                 coada.push(nL);
@@ -70,13 +83,23 @@ export default class Tree<T>{
             if(nR!=null){
                 coada.push(nR);
             }
-            console.log(coada[0].data);
+            console.log(coada[0]);
             coada.shift();
 
         }
 
     }
 
+ // public getNextLevel(prevLevel:Nod<Persoana>[]):Nod<Persoana>[]{
+ //        let level:Nod<Persoana>[]=[];
+ //        prevLevel.map(p=>{
+ //            let persL=p.left;
+ //            let perR=p.right;
+ //            level.push(persL);
+ //            level.push(persR);
+ //        });
+ //        return level;
+ //    }
 
 
 }

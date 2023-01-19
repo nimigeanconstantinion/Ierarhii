@@ -1,10 +1,11 @@
+import Manager from "./Manager";
 
 
 export default interface Persoana{
     id:Number;
-    fullname: String;
-    position: String;
-    parinte:Persoana;
+    fullname: string;
+    position: string;
+    parinte:Manager;
 
 
 }
