@@ -6,6 +6,7 @@ import com.example.api.repository.PersoanaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,38 @@ public class PersoanaServices {
             }
 
     }
+
+    public void deletePersonAndAllChildren(Persoana p){
+        List<Persoana> listaCopii=loadAllChildren(p);
+        for (Persoana per:listaCopii) {
+                persoanaRepository.delete(per);
+        };
+    }
+
+    public List<Persoana> loadAllChildren(Persoana origin){
+        List<Persoana> allCh=new ArrayList<>();
+        List<Persoana> nivel=new ArrayList<>();
+        nivel.add(origin);
+        allCh.add(origin);
+        boolean sw=true;
+        while(sw){
+            List<Persoana> level=new ArrayList<>();
+
+            for (Persoana p:nivel
+                 ) {
+                level.addAll(getChildren(p.getId()));
+            }
+            if(level.size()==0){
+                sw=false;
+
+            }else{
+                allCh.addAll(level);
+                nivel=level;
+            }
+        }
+        return allCh;
+    }
+
 
     public void removePersoana(Persoana persoana){
         persoanaRepository.delete(persoana);

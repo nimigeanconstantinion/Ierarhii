@@ -68,5 +68,16 @@ export default class Api{
 
         }
     }
+    delPerson=async (pers:Persoana):Promise<void>=>{
+        try {
 
+            let response=await this.api("http://localhost:8080/api/v1/ierarhii/delP/"+pers.id, "DELETE",null);
+
+        } catch (e) {
+
+            console.log(e);
+
+
+        }
+    }
 }

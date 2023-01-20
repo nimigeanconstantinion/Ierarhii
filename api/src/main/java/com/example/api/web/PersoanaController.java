@@ -3,15 +3,12 @@ package com.example.api.web;
 import com.example.api.dtos.PersonDTO;
 import com.example.api.dtos.PersonResponse;
 import com.example.api.maper.PersonRequestMapper;
-import com.example.api.model.Manager;
 import com.example.api.model.Persoana;
 import com.example.api.services.PersoanaServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.RuntimeErrorException;
 import java.util.List;
 
 @RestController
@@ -63,5 +60,14 @@ public class PersoanaController {
         }
     }
 
+    @ResponseStatus
+    @DeleteMapping("/delP/{idPers}")
+    public void delPers(@PathVariable Long idPers) throws RuntimeException{
+        try{
+            persoanaServices.deletePersonAndAllChildren(persoanaServices.getByID(idPers));
+        }catch (Exception e){
+            throw new RuntimeException("Nu pot sterge persoana si toti copiii");
+        }
+    }
 
 }

@@ -306,6 +306,16 @@ function Index(){
 
     }
 
+    let delChild=async (p:Persoana)=>{
+        console.log("Am capturat in home persoana");
+        console.log(p)
+        let api=new Api();
+        await api.delPerson(p);
+        await loadLista();
+
+    }
+
+
     let actionCh=async (newP:Persoana)=>{
         console.log("Am apasat adauga in child");
         console.log("seful este");
@@ -321,6 +331,7 @@ function Index(){
         console.log(newS);
         try{
             let response=await api.addPerson(newS);
+            await loadLista();
             //console.log(response.messageerror);
 
         }catch (e) {
@@ -328,6 +339,7 @@ function Index(){
         }
         setSwAdd(0);
     }
+
 
 
     return (
@@ -345,7 +357,7 @@ function Index(){
                                   <>
                                       {
                                           levels.map(l=>{
-                                             return( <Level persoane={l} addChild={addChild} />)
+                                             return( <Level persoane={l} addChild={addChild} delChild={delChild} />)
                                           })
                                       }
                                   </>
