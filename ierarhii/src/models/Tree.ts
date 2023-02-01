@@ -1,5 +1,5 @@
 import Nod from "./Nod";
-import Persoana from "./Persoana";
+//import Persoana from "./Persoana";
 
 
 export default class Tree<T>{

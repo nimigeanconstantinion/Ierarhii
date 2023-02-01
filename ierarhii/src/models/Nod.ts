@@ -1,3 +1,4 @@
+import Comparable from "./Comparable";
 
 
 export default interface Nod<T>{

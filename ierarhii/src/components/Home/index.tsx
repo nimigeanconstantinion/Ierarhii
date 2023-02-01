@@ -13,6 +13,7 @@ import {tab} from "@testing-library/user-event/dist/tab";
 import useAsyncEffect from "use-async-effect";
 import Child from "../Child/Child";
 import {forEach} from "react-bootstrap/ElementChildren";
+import BinaryTree from "../../models/BinaryTree";
 
 
 
@@ -22,25 +23,14 @@ function Index(){
 
     const [lista,setLista]=useState(Object);
     const [levels,setLevels]=useState(Array<Array<any>>([[]]));
-  //  const [levPers,setLevelPers]=useState(Object);
     const [swAdd,setSwAdd]=useState(0);
+    const [swB,setSwB]=useState(0);
+
     const [organigrama,setOrganigrama]=useState(null);
     const [myTree,setMyTree]=useState(Object);
     const [sef,setSef]=useState(Object);
+    const [fdel,setFDel]=useState(0);
 
-    // useEffect(() => {
-    //     let org=lista;
-    //
-    //         (async () => {
-    //             console.log("Lista din use efect este ");
-    //             console.log(lista);
-    //             await loadTree(lista);
-    //         })();
-    //
-    //
-    //
-    //
-    // }, [lista]);
 
     useAsyncEffect(async ()=>{
 
@@ -49,20 +39,36 @@ function Index(){
             console.log(lista);
             let ob=structuredClone(lista);
             loadTree(ob);
-
+           // setFDel(1);
         }
     },[lista]);
 
+
+    useAsyncEffect(async ()=>{
+
+        console.log("Asta i lista din BTREE")
+        console.log(lista);
+        if(lista instanceof Array<Persoana>&&lista.length>0){
+            console.log(" cu asta merg la arbore Din use effect Btreeeeeeeee")
+            console.log(lista);
+            let obx=structuredClone(lista);
+            loadBTreeAge(obx);
+           // setFDel(2);
+        }
+    },[swB]);
+
     useEffect(()=>{
              console.log("Hellou");
-             if (myTree instanceof Tree) {
+             if (myTree instanceof Tree<Persoana>) {
                  console.log("uraaaa am incarcat arborele    ");
                  console.log("Lsta este:");
                  console.log(lista);
 
                  loadTreeLevels(myTree);
-        //
-           }
+
+           }else if(myTree instanceof BinaryTree<Persoana>){
+                 loadTreeLevels(myTree);
+             }
     },[myTree])
 
     useEffect(()=>{
@@ -70,20 +76,6 @@ function Index(){
        console.log(levels);
     },[levels])
 
-
-    // useEffect(() => {
-    //     if (myTree instanceof Tree) {
-    //         console.log("uraaaa");
-    //         loadTreeLevels(myTree);
-    //
-    //     }
-    //
-    // }, [myTree]);
-
-    // useEffect(()=>{
-    //     console.log("Am nivelele");
-    //     console.log(persLev);
-    // },[persLev])
 
    let loadLista= async ():Promise<void> => {
         let api=new Api();
@@ -111,8 +103,7 @@ function Index(){
 
 
     let loadTree= async (tabel:Persoana[]):Promise<any> =>{
-        console.log("din loadtree tabel=");
-        console.log(tabel);
+
      if(tabel.length>0){
          let persRoot=findRoot(tabel);
          let root:Nod<Persoana>={
@@ -141,10 +132,6 @@ function Index(){
          }
 
 
-
-         console.log("am incarcat Arborele");
-         console.log(tree);
-
 //         tree.traverse();
          setMyTree(tree);
 
@@ -152,13 +139,125 @@ function Index(){
 
     }
 
+    const comparatorByAge = (personA: Persoana, personB: Persoana) => {
+            return personA.compareTo(personB);
+    }
+
+    let loadBTreeAge= async (persoane:Persoana[]):Promise<any> =>{
+        console.log("**** din loadB         tree tabel=");
+        console.log(persoane);
+        if(persoane.length>0){
+            let ob=structuredClone(lista);
+            let indexRoot=-1;
+            indexRoot=findRootIndex(ob);
+            console.log("Index Root-ul din findRoot");
+            console.log(indexRoot);
+            console.log(persoane);
+            let persRoot=null;
+            if(indexRoot>=0){
+                 let p=persoane[indexRoot];
+                 let m:Manager={
+                     idManager:p.parinte.idManager,
+                     fullname:p.parinte.fullname,
+                     position:p.parinte.position,
+                     age:p.parinte.age,
+                     salary:p.parinte.salary
+                 }
+                 persRoot=new Persoana(p.id,p.fullname,p.position,p.age,p.salary,m)
+                console.log(persRoot);
+
+            }
+            let root:Nod<Persoana>={
+                data:persRoot,
+                left:null,
+                right:null
+            }
+             let tree = new BinaryTree(root);
+            if(persRoot!=null) {
+                console.log(persoane.indexOf(persRoot));
+            }
+            persoane.splice(indexRoot,1);
+            console.log("Tabelul devine");
+            console.log(persoane);
+             while (persoane.length!=0){
+                 let newMan:Manager={
+                     idManager:persoane[0].parinte.idManager,
+                     fullname:persoane[0].parinte.fullname,
+                     position:persoane[0].parinte.position,
+                     age:persoane[0].parinte.age,
+                     salary:persoane[0].parinte.salary
+
+                 }
+                 let newP=new Persoana(persoane[0].id,persoane[0].fullname,persoane[0].position,persoane[0].age,
+                     persoane[0].salary,newMan);
+                 // if(root.data!=null){
+                      console.log("===================================");
+                 //     console.log(persoane[0].compareTo(root.data));
+                 //
+                 // }
+                 console.log(root.data?.compareTo(persoane[0]));
+                 tree.insert(newP,root);
+                 persoane.shift();
+             }
+// //
+// //
+            console.log("Am incarcat BTREEEEEEEE");
+
+            console.log(tree);
+//         tree.traverse();
+            setMyTree(tree)
+
+
+        }
+// //         if(tabel.length>0){
+// //             let persRoot=findRoot(tabel);
+// //             console.log("Rootul este");
+// //             console.log(persRoot);
+// //             let root:Nod<Persoana>={
+// //                 data:persRoot,
+// //                 left:null,
+// //                 right:null
+// //             }
+// //             let tree = new BinaryTree(root);
+// //             tabel.splice(tabel.indexOf(persRoot),1);
+// //             console.log("Tabelul devine");
+// //             console.log(tabel);
+// //             while (tabel.length!=0){
+// //
+// //                 tree.insert(tabel[0],root);
+// //                 tabel.shift();
+// //             }
+// //
+// //
+// //             console.log("Am incarcat BTREEEEEEEE");
+// //
+// //             console.log(tree);
+// // //         tree.traverse();
+// //             setMyTree(tree);
+//
+//         }
+
+    }
+
+
     let getNextLevel=(prevLevel:Nod<Persoana>[]|null|undefined):Nod<Persoana>[]|null=>{
        let nextLevel:Nod<Persoana>[]=[];
+       let eM:Manager={
+           idManager:0,
+           fullname:"",
+           position:"",
+           age:0,
+           salary:0
+       };
+       let eP:Persoana=new Persoana(0,"","",0,0,eM);
+
+
         let emptyNode:Nod<Persoana>={
             left:null,
             right:null,
-            data:null
+            data:eP
         };
+
        console.log("get next level pentru____________");
         console.log(prevLevel);
 
@@ -205,13 +304,15 @@ function Index(){
     }
     //
     //
-    let loadTreeLevels=(tree:Tree<Persoana>):Array<Nod<Persoana>[]>=>{
+    let loadTreeLevels=(tree:Tree<Persoana>|BinaryTree<Persoana>):Array<Nod<Persoana>[]>=>{
        let ret:Array<Nod<Persoana>[]>=[];
 
        let emptyM:Manager={
-           idManager:null,
+           idManager:0,
            fullname:null,
-           position:null
+           position:null,
+           age:0,
+           salary:0
        }
        let rslt:Array<Persoana[]>=[];
        let levi:Persoana[]|null=[];
@@ -242,7 +343,17 @@ function Index(){
                            id:0,
                            fullname:"",
                            position:"",
-                           parinte:emptyM
+                           age:0,
+                           salary:0,
+                           parinte:emptyM,
+                           compareTo(obj): number {
+                               if(this.age>obj.age){
+                                   return 1;
+                               }else if(this.age<obj.age){
+                                   return -1;
+                               }
+                               return 0;
+                           }
                        }
                            lev=nextLev;
                        if(lev){
@@ -277,6 +388,16 @@ function Index(){
        return myroot;
     }
 
+    let findRootIndex=(listaPers:Persoana[]):number=>{
+        let indx=listaPers.map((p,index)=>{
+            if(p.parinte.idManager==0){
+                return index;
+            }
+            return -1;
+        }).filter(c=>c>=0)[0];
+        return indx;
+    }
+
     let loadClk=async ()=>{
        try {
            await loadLista();
@@ -309,11 +430,27 @@ function Index(){
     let delChild=async (p:Persoana)=>{
         console.log("Am capturat in home persoana");
         console.log(p)
-        let api=new Api();
-        await api.delPerson(p);
-        await loadLista();
+        if(fdel==1){
+            let api=new Api();
+            await api.delPerson(p);
+            await loadLista();
+        }
+        if(fdel==2){
+            console.log("la stergere binara");
+           // let tmpTree=structuredClone(myTree);
+            myTree.removeNod(lista[findRootIndex(lista)],p);
+            console.log(myTree);
+        }
+
 
     }
+
+   let delBynaryNode=async (p:Persoana)=>{
+        let tmpTree:BinaryTree<Persoana>=structuredClone(myTree);
+        let tmpLista=structuredClone(lista);
+        tmpTree.removeNod(tmpLista[findRootIndex(tmpLista)],p);
+        setMyTree(tmpTree);
+   }
 
 
     let actionCh=async (newP:Persoana)=>{
@@ -326,6 +463,8 @@ function Index(){
         let newS={
             personFullName:newP.fullname,
             personPosition:newP.position,
+            personAge:newP.age,
+            personSalary:newP.salary,
             idSef:sef.id
         }
         console.log(newS);
@@ -340,12 +479,16 @@ function Index(){
         setSwAdd(0);
     }
 
+    let loadBClk=async ()=>{
 
+       setSwB((prevState => prevState+1));
+    }
 
     return (
                 <WrapperHome>
                     <div className={"divcmd"}>
                         <button className={"btnadd"} onClick={loadClk}>Arata Organigrama</button>
+                        <button className={"btnadd"} onClick={loadBClk}>Arata Arborele Varstelor</button>
 
                     </div>
 

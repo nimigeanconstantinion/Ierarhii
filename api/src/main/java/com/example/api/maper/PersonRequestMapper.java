@@ -26,6 +26,8 @@ public class PersonRequestMapper {
         Persoana p=new Persoana();
         p.setFullname(personDTO.getPersonFullName());
         p.setPosition(personDTO.getPersonPosition());
+        p.setAge(personDTO.getPersonAge());
+        p.setSalary(personDTO.getPersonSalary());
 
         if(personDTO.getIdSef()!=null){
             Persoana sef=persoanaServices.getByID(personDTO.getIdSef());
@@ -33,6 +35,8 @@ public class PersonRequestMapper {
             manager.setFullname(sef.getFullname());
             manager.setPosition(sef.getPosition());
             manager.setIdManager(personDTO.getIdSef());
+            manager.setAge(personDTO.getManagerAge());
+            manager.setSalary(personDTO.getManagerSalary());
             p.setParinte(manager);
         }else{
             Manager manager=new Manager();

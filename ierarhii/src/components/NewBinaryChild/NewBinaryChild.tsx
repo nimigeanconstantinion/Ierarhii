@@ -10,7 +10,7 @@ interface ChildProps{
     action: (newPers: Persoana)=>void
 }
 
-const Child:React.FC<ChildProps> =({superior,action}) => {
+const NewBinaryChild:React.FC<ChildProps> =({superior,action}) => {
     const refFName = React.useRef<HTMLInputElement>(null);
     const refPosition= React.useRef<HTMLInputElement>(null);
     const refAge= React.useRef<HTMLInputElement>(null);
@@ -29,15 +29,17 @@ const Child:React.FC<ChildProps> =({superior,action}) => {
 
            }
 
-            let id=0;
-           let fn=refFName.current !== undefined ? refFName.current!.value :"";
-           let pos=refPosition.current !==undefined? refPosition.current!.value:"";
-           let a=refAge.current!==undefined?refAge.current!.value:0;
-           let s=refSalary.current!==undefined?refSalary.current!.value:0;
 
-            let newPers:Persoana= new Persoana(id,fn,pos,+a,+s,manager);
-            console.log("---------Noua PERSOANA");
-            console.log(newPers);
+
+           let newPers=new Persoana(0,"","",0,0,manager);
+           newPers.id=0;
+           newPers.fullname=refFName.current !== undefined ? refFName.current!.value :"";
+           newPers.position=refPosition.current !==undefined? refPosition.current!.value:"";
+           newPers.age=refAge.current!==undefined?+refAge.current!.value:0;
+           newPers.salary=refSalary.current!==undefined?+refSalary.current!.value:0;
+           newPers.parinte=manager;
+           // {
+           //     id: 0,
            //     fullname :refFName.current !== undefined ? refFName.current!.value :"",
            //     position:refPosition.current !==undefined? refPosition.current!.value:"",
            //     age:refAge.current!==undefined?+refAge.current!.value:0,
@@ -46,6 +48,7 @@ const Child:React.FC<ChildProps> =({superior,action}) => {
            // }
             action(newPers);
     }
+
     return (
         <WrapperChild>
             <h2>Add Child</h2>
@@ -61,8 +64,8 @@ const Child:React.FC<ChildProps> =({superior,action}) => {
             <label>Salary </label>
             <input type={"text"} className={"inpSalary"} ref={refSalary}/>
 
-            <Button as="input" className={"btn"} type="button" value="Add Child" onClick={addClk}/>
-            <Button as="input" className={"btn"} type="button" value="Cancel" onClick={addClk}/>
+            <Button as="input" className={"btn adc"} type="button" value="Add Child" onClick={addClk}/>
+            <Button as="input" className={"btn cancel"} type="button" value="Cancel" onClick={addClk}/>
 
 
             {/*<input className="btnab cancel" type="button" value="Cancel" />*/}
@@ -71,4 +74,4 @@ const Child:React.FC<ChildProps> =({superior,action}) => {
     );
 
 }
-export default Child;
+export default NewBinaryChild;

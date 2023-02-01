@@ -4,7 +4,7 @@ export const WrapperCard = styled.div.attrs({className: "divcard"})`
   border: none;
   border-radius: 5px;
   width: 200px;
-  height: 80px;
+  height: 100px;
   background-color: white;
   color: #282c34;
   background-color: wheat;

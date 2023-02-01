@@ -50,6 +50,18 @@ const  Card:React.FC<CardProps>=({persoana,addClick,delClick}:CardProps)=>{
                 <button id={"btnm"} onClick={delClk}>-</button>
                 <p className={"divc name"}>{persoana.fullname}</p>
                 <p className={"divc func"}>{persoana.position}</p>
+                {
+                    persoana.age>0?(
+                            <p className={"divc age"}>Age :{persoana.age.toString()}</p>
+
+                    ):""
+                }
+                {
+                    persoana.salary>0?(
+                        <p className={"divc salary"}>Salary :{persoana.salary.toString()}</p>
+
+                    ):""
+                }
                 <p id={"idP"} hidden={true}>{persoana.id.toString()}</p>
             </WrapperCard>
 

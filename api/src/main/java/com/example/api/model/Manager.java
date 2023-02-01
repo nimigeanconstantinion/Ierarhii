@@ -20,5 +20,8 @@ public class Manager implements Serializable{
     private long idManager;
     private String fullname;
     private String position;
+    private int age,salary;
+
+
 
 }
