@@ -41,15 +41,13 @@ export default class Tree<T>{
     }
 
     public add(manager:T,subordonat:T):boolean{
-       let  nodeManager=this.find(this.root,manager);
+       let  nodeManager:Nod<T>|null=this.find(this.root,manager);
         if(nodeManager!=null){
             if(nodeManager.left==null){
 
                 nodeManager.left= {
-
                     data:subordonat
-
-                }
+                };
                 return true;
             }else if(nodeManager.right==null){
               //  nodeManager.right=new Nod(null,null,subordonat);
@@ -69,7 +67,7 @@ export default class Tree<T>{
     public traverse():void{
         //.clear();
         console.log("------------------La traversare----");
-        let coada:Nod<T>[]=[];
+        let coada:Nod<T|null>[]=[];
         coada.push(this.root);
         console.log("ROOT");
 
@@ -79,12 +77,15 @@ export default class Tree<T>{
 
             if(nL!=null){
                 coada.push(nL);
+                console.log(nL!.data);
             }
             if(nR!=null){
                 coada.push(nR);
+                console.log(nR!.data);
             }
             console.log(coada[0]);
             coada.shift();
+            console.log("Lungimea este n"+coada.length);
 
         }
 

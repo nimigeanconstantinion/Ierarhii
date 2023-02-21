@@ -2,35 +2,45 @@ import Persoana from "../../models/Persoana";
 import {WrapperCard} from "./CardStyle";
 import {useEffect, useState} from "react";
 import Child from "../Child/Child";
-interface CardProps{
+import { Tooltip } from 'primereact/tooltip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquarePlus,faSquareMinus } from '@fortawesome/free-solid-svg-icons'
 
+interface CardProps{
     persoana:Persoana,
     addClick:Function,
-    delClick:Function
+    delClick:Function,
+    selected:Function,
+    kk:string
 
 }
 
 
-const  Card:React.FC<CardProps>=({persoana,addClick,delClick}:CardProps)=>{
+const  Card:React.FC<CardProps>=({persoana,addClick,delClick,selected,kk}:CardProps)=>{
 
     const [swAdd,setswAdd]=useState(0);
 
 
-    useEffect(()=>{
-     if(persoana.id==0){
+    useEffect(()=> {
 
-        //  let lista:Object=document.getElementsByClassName("divcard");
-        //  let elems=Object.values(lista);
-        // // console.log(elems.length);
-        //  let id=elems.filter(c=>c.children[3].textContent==persoana.id.toString())[0].children[3].textContent;
-         console.log("Card pentru "+persoana.id);
 
-         // let card=elems.filter(c=>c.getElementById("idP").innerHTML==persoana.id)[0];
-         // if(card){
-         //     console.log(card);
-         // }
-     }
-    },[])
+        if (persoana.id == 0) {
+               let elem=Array.from(document.getElementsByClassName("divcard"));
+               elem.map(c=>{
+
+                   let elm=c.children[2];
+                   if(elm.textContent==""){
+                      const x= (c as HTMLDivElement);
+                      x.style.visibility="hidden";
+                   }else{
+                       const x= (c as HTMLDivElement);
+                       x.style.visibility="visible";
+                   }
+               });
+
+        }
+
+    });
 
     let addClk=()=>{
             addClick(persoana);
@@ -41,13 +51,19 @@ const  Card:React.FC<CardProps>=({persoana,addClick,delClick}:CardProps)=>{
         delClick(persoana);
 
     }
+    let selPers=()=>{
+        selected(persoana);
+    }
 
     return (
         <>
 
-            <WrapperCard className={"divcard"}>
-                <button id={"btna"} onClick={addClk}>+</button>
-                <button id={"btnm"} onClick={delClk}>-</button>
+            <WrapperCard className={"divcard"} onClick={selPers}>
+                {/*<button id={"btna"} onClick={addClk}>+</button>*/}
+                <FontAwesomeIcon id={"btna"}  onClick={addClk} icon={faSquarePlus} />
+
+                <FontAwesomeIcon id={"btnm"}  onClick={delClk} icon={faSquareMinus} />
+                {/*<button id={"btnm"} onClick={delClk}>-</button>*/}
                 <p className={"divc name"}>{persoana.fullname}</p>
                 <p className={"divc func"}>{persoana.position}</p>
                 {

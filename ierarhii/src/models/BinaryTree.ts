@@ -1,27 +1,56 @@
 import Nod from "./Nod";
 import Comparable from "./Comparable";
+import Comparator from "./Comparator";
 
 
-export default class BinaryTree<T extends Comparable<T>> {
+export default class BinaryTree<T extends Comparable<T>>{
     private root:Nod<T>;
     constructor(root:Nod<T>) {
         this.root=root;
     }
 
-    public get getRoot(){
+    public getRoot():Nod<T>{
         return this.root;
     }
 
-   public findSuccesor(current:Nod<T>|null|undefined):Nod<T>|null|undefined{
 
-       let start:Nod<T>|null|undefined=current!.right;
 
-        let exp=current!=null&&start?.left!=null;
-        if(exp){
-            return start?.left;
+    public find(nod:Nod<T>,data:T):Nod<T> | null {
+        if (nod === null) {
+            return null;
+        }
+        if (nod.data == data) {
+            return nod;
         }
 
-        return this.findSuccesor(start?.right);
+        if(nod.left){
+            let left:Nod<T>|null=this.find(nod.left,data);
+            if(left){
+                return left;
+            }
+        }
+
+        if(nod.right){
+            return this.find(nod.right,data);
+        }
+
+        return null;
+    }
+
+   public findSuccesor(current:Nod<T>|null):Nod<T> | null | undefined{
+
+       let start=current!.right;
+       if(start){
+           let exp=current!=null&&start.left!=null;
+           if(exp){
+               return start.left;
+           }else{
+               return start;
+           }
+
+       }
+
+        return current;
 
    }
 
@@ -59,25 +88,30 @@ export default class BinaryTree<T extends Comparable<T>> {
         }
     }
 
+
     public traverse():void{
         //.clear();
         console.log("------------------La traversare----");
-        let coada:Nod<T>[]=[];
+        let coada:Array<any>=[];
         coada.push(this.root);
+
         console.log("ROOT");
 
         while (coada.length>0){
-            let nL=coada[coada.length-1].left;
-            let nR=coada[coada.length-1].right;
+            let nL=coada[0].left;
+            let nR=coada[0].right;
 
             if(nL!=null){
                 coada.push(nL);
+               // console.log(nL.data);
             }
             if(nR!=null){
                 coada.push(nR);
+                //console.log(nR.data);
             }
-            console.log(coada[0]);
+            console.log(coada[0].data);
             coada.shift();
+            console.log(coada);
 
         }
 
@@ -107,8 +141,8 @@ export default class BinaryTree<T extends Comparable<T>> {
                 }else{
                     let tmp:Nod<T>|null|undefined=this.findSuccesor(current);
                     current.data=tmp!.data;
-                    if(tmp?.data){
-                        current.right=this.removeNod(current.right,tmp?.data);
+                    if(tmp!.data!=null){
+                        current.right=this.removeNod(current.right,tmp!.data);
 
                     }
                     tmp=null;
@@ -120,4 +154,6 @@ export default class BinaryTree<T extends Comparable<T>> {
         }
         return current;
     }
+
+
 }

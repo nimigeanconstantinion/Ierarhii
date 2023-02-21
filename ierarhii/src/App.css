@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+
+.divcard.divhide{
+  /*display:block;*/
+  opacity:0;
+
+}
+.divhome{
+  display: block;
+  height:100vh;
+}
+.divcard.divshow{
+  /*display:block;*/
+  opacity:1;
+
+}

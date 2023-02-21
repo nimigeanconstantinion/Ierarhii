@@ -6,7 +6,7 @@ import compositionStart = Simulate.compositionStart;
 import {resolve} from "dns/promises";
 import {Runtime} from "inspector";
 import {constants} from "os";
-import {ErrorREST} from "./models/ErrorRest";
+import ErrorRest from "./models/ErrorRest";
 
 import { Result, Err, Ok} from 'neverthrow';
 
@@ -18,33 +18,48 @@ interface ResponseData {
 };
 
 export default class Api{
-    api(path:string, method = 'GET', body:string|null){
 
-        const options={
+    api<T,U>(path:string,method="GET",body:U):Promise<ResponseImpl<T>>{
+
+        const url=  path;
+
+        const options:RequestInit = {
             method,
-            headers:{
-                'Content-Type':'application/json;charset=utf-8'
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
             },
-            body
-        };
 
-        if(body !=null){
-            options.body = JSON.stringify(body);
+
+            body:body==null?null:JSON.stringify(body)
         }
-
-
-        return fetch( path, options);
+        return fetch (url,options)
     }
+    // api(path:string, method = 'GET', body:string|null){
+    //
+    //     const options={
+    //         method,
+    //         headers:{
+    //             'Content-Type':'application/json;charset=utf-8'
+    //         },
+    //         body
+    //     };
+    //
+    //     if(body !=null){
+    //         options.body = JSON.stringify(body);
+    //     }
+    //
+    //
+    //     return fetch( path, options);
+    // }
 
 
     getPersons = async ():Promise<ResponseImpl<Persoana[]>> => {
         try {
 
             let response = await this.api("http://localhost:8080/api/v1/ierarhii", "GET",null);
-            console.log("**************Raspuns din api");
-            console.log(response);
 
             let ret=await response.json();
+            console.log("RET di api");
             console.log(ret);
             return ret;
         } catch (e) {
@@ -56,17 +71,14 @@ export default class Api{
 
     }
 
-    addPerson=async (newPers:any):Promise<void>=>{
-        try {
-
-             let response=await this.api("http://localhost:8080/api/v1/ierarhii/addp", "POST",newPers);
-
-        } catch (e) {
-
-        console.log(e);
+    addPerson=async (newPers:any):Promise<ResponseImpl<Persoana>> =>{
 
 
-        }
+             const response=await this.api("http://localhost:8080/api/v1/ierarhii/addnp", "POST",newPers);
+
+             return response.json();
+
+
     }
     delPerson=async (pers:Persoana):Promise<void>=>{
         try {

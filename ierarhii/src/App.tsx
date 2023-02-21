@@ -7,47 +7,77 @@ import Manager from "./models/Manager";
 import BinaryTree from "./models/BinaryTree";
 import Nod from "./models/Nod";
 import Integers from "./models/Integers";
+import BinarySearchTree from "./models/BinarySearchTree";
 
 function App() {
-    let int:Integers=new Integers(12);
+    let rt:Integers=new Integers(32);
     let root:Nod<Integers>={
-        data:int,
+        data:rt,
         left:null,
         right:null
     }
-    let tree=new BinaryTree(root);
-    int=new Integers(10);
-    let nod:Nod<Integers>={
-        data:int,
-        left:null,
-        right:null
-    }
-    tree.insert(int,root);
-    int=new Integers(8);
-    tree.insert(int,root);
+    let tree=new BinarySearchTree(root,(a:Integers,b:Integers):number=>{
+       return a.data-b.data;
+    });
 
-    int=new Integers(11);
-    tree.insert(int,root);
-    int=new Integers(9);
-    tree.insert(int,root);
-
-    int=new Integers(18);
-    tree.insert(int,root);
-    int=new Integers(15);
-    tree.insert(int,root);
-    int=new Integers(20);
-    tree.insert(int,root);
-    int=new Integers(16);
-    tree.insert(int,root);
-    int=new Integers(17);
-    tree.insert(int,root);
-
-    console.log("------------------Tree---------------")
     console.log(tree);
-    console.log("=============================");
-    int=new Integers(12);
-    console.log(tree.removeNod(root,int));
+    console.log("====== dupa constructie ==========================");
+    root=tree.getRoot;
+    let nr:Integers=new Integers(23);
+//     let rtt:Nod<Integers>=tree.getRoot;
+      tree.insert(nr,root);
+// //     //
+      nr=new Integers(21);
+      tree.insert(nr,root);
+///
+    nr=new Integers(56);
+    tree.insert(nr,root);
 
+
+     nr=new Integers(45);
+     tree.insert(nr,root);
+//
+   // console.log(tree);
+      nr=new Integers(42);
+      tree.insert(nr,root);
+//     //
+
+      nr=new Integers(43);
+      tree.insert(nr,root);
+//      // int=new Integers(16);
+//      // tree.insert(int,root);
+//      // int=new Integers(17);
+//      // tree.insert(int,root);
+//      // int=new Integers(20);
+//      // tree.insert(int,root);
+// // //     //
+// // //     //
+       console.log("------------------Tree dupa incarcare---------------")
+       console.log(tree);
+       console.log("________________________");
+// // //     console.log(tree.traverse());
+// // // //     console.log(tree);
+    console.log("==============Dupa stergere===============");
+//       let rmv=new Integers(12);
+       tree.removeNod(root,new Integers(45));
+      console.log("+++++++++++++++++++++++");
+
+      let nodd=tree.find(root,new Integers(56));
+      console.log(nodd);
+      //let nodx:Nod<Integers>|null=tree.succesor(nodd);
+     // console.log(nodx);
+
+    tree.removeNod(root,new Integers(56));
+
+    console.log("+++++++++++++++++++++++");
+
+
+//       tree.removeNod(root,new Integers(56));
+//
+//       console.log(tree.traverse());
+// //
+    //  console.log(tree);
+      console.log(tree.traverse());
 
 
 

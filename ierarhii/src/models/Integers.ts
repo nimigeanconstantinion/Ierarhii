@@ -16,4 +16,7 @@ export default class Integers implements Comparable<Integers>{
         }
         return 0;
     }
+    public equals(t:Integers):boolean{
+         return this.data==t.data;
+    }
 }

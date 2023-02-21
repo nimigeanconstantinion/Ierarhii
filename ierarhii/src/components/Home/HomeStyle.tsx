@@ -2,15 +2,17 @@ import styled from "styled-components";
 
 export const WrapperHome=styled.div.attrs({className:"divhome"})`
   width: 100vw;
-  height: 100vh;
+  
   font-size: 1em;
   display: flex;
   flex-direction: row;
-
+  
   .divcmd{
     width: 20%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-self: self-start;
     padding: 10px;
   }
   .btnadd{
@@ -21,15 +23,16 @@ export const WrapperHome=styled.div.attrs({className:"divhome"})`
     border-radius: 7px;
     display: block;
     line-height: .6em;
+    margin: 5px 5px;
   }
 
   #container{
     width: 80%;
-    height: 100vh;
+    height: auto;
     display: block;
     position: relative;
     
-    
+    overflow-y: auto;
   }
   #layer{
     width: 100%;

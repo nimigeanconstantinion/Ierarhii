@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const WrapperChild=styled.div.attrs({className:"divchild"})`
     width: 80%;
-    height: 500px;
+    height: 600px;
     position: absolute;
     z-index: 100;
     top: auto;
@@ -23,7 +23,13 @@ export const WrapperChild=styled.div.attrs({className:"divchild"})`
   label{
     margin-left: 5px;
   }
-  .btn{
-    width: 20%;
-  }
+  
+ .divbutoane{
+   
+   display: flex;
+   flex-direction: row;
+ }
+  
+  
+  
 `

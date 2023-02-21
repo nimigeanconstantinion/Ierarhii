@@ -7,6 +7,7 @@ import com.example.api.model.Persoana;
 import com.example.api.services.PersoanaServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,9 +28,17 @@ public class PersoanaController {
 
 
     @GetMapping("")
+//    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResponseEntity<PersonResponse<List<Persoana>>> getIerarhie(){
         List<Persoana> persoane=persoanaServices.getAll();
         return new ResponseEntity<>(new PersonResponse<>(persoane),HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+
+    public List<Persoana> getIerarhie2(){
+        List<Persoana> persoane=persoanaServices.getAll();
+        return persoane;
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -60,6 +69,18 @@ public class PersoanaController {
         }
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/addnp")
+    public Persoana addNewPers(@RequestBody PersonDTO persoanaDTO) throws RuntimeException {
+        Persoana p=personRequestMapper.personRequest(persoanaDTO);
+        try{
+            persoanaServices.addPerson(p);
+            return p;
+        }catch (Exception e){
+            throw new RuntimeException("Nu pot adauga mai mult de 2 subalterni");
+        }
+    }
+
     @ResponseStatus
     @DeleteMapping("/delP/{idPers}")
     public void delPers(@PathVariable Long idPers) throws RuntimeException{
@@ -69,5 +90,7 @@ public class PersoanaController {
             throw new RuntimeException("Nu pot sterge persoana si toti copiii");
         }
     }
+
+
 
 }

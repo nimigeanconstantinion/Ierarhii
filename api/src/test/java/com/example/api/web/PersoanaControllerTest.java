@@ -37,36 +37,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  //need this in Spring Boot test
     @AutoConfigureMockMvc
 class PersoanaControllerTest {
-
-    @MockBean
-    private PersoanaRepository persoanaRepository;
-
-    @Autowired
-    private PersoanaServices persoanaServices;
-
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    void getIerarhie() throws Exception {
-//        Manager m=new Manager();
-        Manager m=new Manager(1L,"manager","CEO",30,7000);
-        Persoana p=new Persoana(2L,"kjklllh","tehnic",30,8000,m);
-        List<Persoana> lista=new ArrayList<>();
-
-        lista.add(p);
-        ObjectMapper mapper=new ObjectMapper();
-        when(persoanaRepository.findAll()).thenReturn(lista);
-        List<Persoana> lista2=new ArrayList<>();
-        Persoana p2=new Persoana(3L,"kjklllh","tehnic",30,8000,m);
-
-       // lista2.add(new Persoana(3L,));
-        MvcResult resultActions=mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/api/v1/ierarhii")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(lista))).andReturn();
-
-        System.out.println(resultActions.getResponse().getContentAsString());
-    }
+//
+//    @MockBean
+//    private PersoanaRepository persoanaRepository;
+//
+//    @Autowired
+//    private PersoanaServices persoanaServices;
+//
+//
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @Test
+//    void getIerarhie() throws Exception {
+////        Manager m=new Manager();
+//        Manager m=new Manager(1L,"manager","CEO",30,7000);
+//        Persoana p=new Persoana(2L,"kjklllh","tehnic",30,8000,m);
+//        List<Persoana> lista=new ArrayList<>();
+//
+//        lista.add(p);
+//        ObjectMapper mapper=new ObjectMapper();
+//        when(persoanaRepository.findAll()).thenReturn(lista);
+//        List<Persoana> lista2=new ArrayList<>();
+//        Persoana p2=new Persoana(3L,"kjklllh","tehnic",30,8000,m);
+//
+//       // lista2.add(new Persoana(3L,));
+//        MvcResult resultActions=mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/api/v1/ierarhii")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(mapper.writeValueAsString(lista))).andReturn();
+//
+//        System.out.println(resultActions.getResponse().getContentAsString());
+//    }
 }

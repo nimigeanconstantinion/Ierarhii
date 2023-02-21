@@ -15,6 +15,8 @@ export const WrapperCard = styled.div.attrs({className: "divcard"})`
   line-height: .8em;
   position: relative;
   
+  
+ 
   .divc{
     padding: 0px;
     margin: 4px 0px;
@@ -29,13 +31,19 @@ export const WrapperCard = styled.div.attrs({className: "divcard"})`
     z-index: 98;
     color: darkgreen;
     bottom: 6px;
-    left: 0px;
+    left: 2px;
     border: none;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
     display: none;
     background: none;
   }
+  
+  //.divcard.divhide{
+  //  display: block;
+  //  visibility: hidden;
+  //
+  //}
   #btnm{
     position: absolute;
     z-index: 98;
@@ -43,7 +51,7 @@ export const WrapperCard = styled.div.attrs({className: "divcard"})`
     top: 6px;
     left: 2px;
     border: none;
-    font-size: 2.5em;
+    font-size: 1.5em;
     font-weight: bold;
     display: none;
     background: none;
@@ -55,7 +63,8 @@ export const WrapperCard = styled.div.attrs({className: "divcard"})`
     }
   }
  
-
+  
+  
 
 
 

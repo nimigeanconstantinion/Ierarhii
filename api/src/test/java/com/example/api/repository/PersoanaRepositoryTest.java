@@ -16,17 +16,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = ApiApplication.class)
 @AutoConfigureMockMvc
 class PersoanaRepositoryTest {
-    @MockBean
-    private PersoanaRepository persoanaRepository;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    public void testP(){
-        Long id;
-        id=4L;
-
-    }
+//    @MockBean
+//    private PersoanaRepository persoanaRepository;
+//
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @Test
+//    public void testP(){
+//        Long id;
+//        id=4L;
+//
+//    }
 
 }

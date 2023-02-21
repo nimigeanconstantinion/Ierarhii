@@ -1,5 +1,8 @@
 import Manager from "./Manager";
 import Comparable from "./Comparable";
+import BinaryTree from "./BinaryTree";
+import ComparatorS from "./Comparator";
+import Comparator from "./Comparator";
 
 
 export default class Persoana implements Comparable<Persoana>{
@@ -27,6 +30,7 @@ export default class Persoana implements Comparable<Persoana>{
         }
         return 0;
     };
+
 
 
 }

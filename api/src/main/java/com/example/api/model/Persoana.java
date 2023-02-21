@@ -1,5 +1,7 @@
 package com.example.api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,6 +53,18 @@ public class Persoana {
    // @AttributeOverride(name="id",column=@Column(name="manager_id"))
     private Manager parinte;
 
+
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+
+    @JoinColumn(
+            name="user_id",
+            referencedColumnName = "id"
+    )
+    @JsonBackReference
+    @JsonIgnore
+    private User user;
 
     public boolean equals(Object p){
         Persoana x=(Persoana) p;

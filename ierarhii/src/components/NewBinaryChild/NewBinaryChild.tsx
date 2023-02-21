@@ -50,7 +50,7 @@ const NewBinaryChild:React.FC<ChildProps> =({superior,action}) => {
     }
 
     return (
-        <WrapperChild>
+        <WrapperChild className={"divchild"}>
             <h2>Add Child</h2>
             <label>Full Name</label>
             <input type={"text"} className={"inpFullName"} ref={refFName}/>
@@ -64,8 +64,12 @@ const NewBinaryChild:React.FC<ChildProps> =({superior,action}) => {
             <label>Salary </label>
             <input type={"text"} className={"inpSalary"} ref={refSalary}/>
 
-            <Button as="input" className={"btn adc"} type="button" value="Add Child" onClick={addClk}/>
-            <Button as="input" className={"btn cancel"} type="button" value="Cancel" onClick={addClk}/>
+            <div className={"divbutoane"}>
+
+                <Button as="input" className={"btnadc"} type="button" value="Add Child" onClick={addClk}/>
+                <Button as="input" className={"btncancel"} type="button" value="Cancel" onClick={addClk}/>
+
+            </div>
 
 
             {/*<input className="btnab cancel" type="button" value="Cancel" />*/}

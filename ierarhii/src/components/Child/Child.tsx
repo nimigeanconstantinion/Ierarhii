@@ -3,6 +3,11 @@ import React, {MutableRefObject, useRef} from "react";
 import Persoana from "../../models/Persoana";
 import { Button } from "react-bootstrap";
 import Manager from "../../models/Manager";
+import { Tooltip } from 'primereact/tooltip';
+import { InputText } from 'primereact/inputtext';
+import { Dialog } from 'primereact/dialog';
+import { classNames } from 'primereact/utils';
+
 
 
 interface ChildProps{
@@ -50,7 +55,7 @@ const Child:React.FC<ChildProps> =({superior,action}) => {
         <WrapperChild>
             <h2>Add Child</h2>
             <label>Full Name</label>
-            <input type={"text"} className={"inpFullName"} ref={refFName}/>
+            <InputText type={"text"} className={"inpFullName"} ref={refFName} tooltip="Enter your username" tooltipOptions={{ position: 'top' }}/>
 
             <label>Position </label>
             <input type={"text"} className={"inpPosition"} ref={refPosition}/>
@@ -61,8 +66,8 @@ const Child:React.FC<ChildProps> =({superior,action}) => {
             <label>Salary </label>
             <input type={"text"} className={"inpSalary"} ref={refSalary}/>
 
-            <Button as="input" className={"btn"} type="button" value="Add Child" onClick={addClk}/>
-            <Button as="input" className={"btn"} type="button" value="Cancel" onClick={addClk}/>
+            <Button as="input" className={"btn add"} type="button" value="Add Child" onClick={addClk}/>
+            <Button as="input" className={"btn cancel"} type="button" value="Cancel" onClick={addClk}/>
 
 
             {/*<input className="btnab cancel" type="button" value="Cancel" />*/}

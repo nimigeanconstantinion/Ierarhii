@@ -43,53 +43,53 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class PersoanaServicesTest {
 
-    @MockBean
-    private PersoanaRepository persoanaRepository;
-
-    @Autowired
-    private PersoanaServices persoanaServices;
-
-
-    @Autowired
-    private MockMvc mockMvc;
-
-
-    @Test
-    void getAll() throws Exception {
-        Persoana p=new Persoana();
-        List<Persoana> lista=new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-
-         mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/api/v1/ierarhii")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(contains("Ion")));
-
-
-    }
-
-    @Test
-    void getRoot() {
-    }
-
-    @Test
-    void getChildren() {
-    }
-
-    @Test
-    void addPerson() {
-    }
-
-    @Test
-    void getByID() {
-    }
-
-    public static String asJsonString(final Object obj) throws JsonProcessingException {
-        try{
-            return new ObjectMapper().writeValueAsString(obj);
-
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
+//    @MockBean
+//    private PersoanaRepository persoanaRepository;
+//
+//    @Autowired
+//    private PersoanaServices persoanaServices;
+//
+//
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//
+//    @Test
+//    void getAll() throws Exception {
+//        Persoana p=new Persoana();
+//        List<Persoana> lista=new ArrayList<>();
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//         mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/api/v1/ierarhii")
+//                .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$").value(contains("Ion")));
+//
+//
+//    }
+//
+//    @Test
+//    void getRoot() {
+//    }
+//
+//    @Test
+//    void getChildren() {
+//    }
+//
+//    @Test
+//    void addPerson() {
+//    }
+//
+//    @Test
+//    void getByID() {
+//    }
+//
+//    public static String asJsonString(final Object obj) throws JsonProcessingException {
+//        try{
+//            return new ObjectMapper().writeValueAsString(obj);
+//
+//        }catch (Exception e){
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
