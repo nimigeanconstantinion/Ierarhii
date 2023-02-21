@@ -14,10 +14,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.example.api.constants.Utils.*;
 
 @RestController
-@RequestMapping(path = { "/api/v1/ierarhii"})
+@RequestMapping( "/api/v1/ierarhii/user")
 @CrossOrigin
 @Slf4j
 public class UserController {
@@ -65,5 +67,10 @@ public class UserController {
 
     private void authenticate(String username, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    }
+
+    @GetMapping("")
+    public List<User> getUsers(){
+        return userRepository.findAll();
     }
 }

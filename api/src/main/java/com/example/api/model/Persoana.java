@@ -53,17 +53,8 @@ public class Persoana {
    // @AttributeOverride(name="id",column=@Column(name="manager_id"))
     private Manager parinte;
 
-
-    @ManyToOne(
-            fetch = FetchType.LAZY
-    )
-
-    @JoinColumn(
-            name="user_id",
-            referencedColumnName = "id"
-    )
-    @JsonBackReference
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
     private User user;
 
     public boolean equals(Object p){

@@ -28,7 +28,7 @@ public class PersoanaController {
 
 
     @GetMapping("")
-//    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResponseEntity<PersonResponse<List<Persoana>>> getIerarhie(){
         List<Persoana> persoane=persoanaServices.getAll();
         return new ResponseEntity<>(new PersonResponse<>(persoane),HttpStatus.OK);

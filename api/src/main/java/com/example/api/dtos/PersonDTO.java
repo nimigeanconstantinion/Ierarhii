@@ -14,6 +14,7 @@ public class PersonDTO {
     private Long idSef;
     private String managerFullName,managerPosition;
     private int managerAge,managerSalary;
+
     public PersonDTO(long idPerson,long idSef){
         this.idPerson=idPerson;
         this.idSef=idSef;

@@ -1,6 +1,7 @@
 package com.example.api.model;
 
 import com.example.api.security.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
@@ -12,9 +13,7 @@ import com.example.api.security.UserPermission;
 import com.example.api.security.UserRole;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -41,14 +40,20 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @JsonManagedReference
-    @LazyCollection(LazyCollectionOption.FALSE)
-    List<Persoana> roots = new ArrayList<>();
+//    @OneToMany(
+//            mappedBy = "user",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    @JsonManagedReference
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @JsonManagedReference
+//    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="user")
+      @OneToMany(mappedBy="user",fetch = FetchType.EAGER)
+      @JsonManagedReference
+      @JsonIgnore
+//private Set<Item> items;
+        Set<Persoana> roots = new HashSet<>();
 
     public User(String name,String email,String password){
         this.name=name;
